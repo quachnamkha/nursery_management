@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../models/child_model.dart'; // Import Child model
 import '../providers/child_provider.dart';
@@ -18,15 +19,34 @@ class HomeScreen extends StatelessWidget {
               child: Text('No children available'),
             );
           }
-          return ListView.builder(
-            itemCount: childProvider.children.length,
-            itemBuilder: (context, index) {
-              final child = childProvider.children[index];
-              return ListTile(
-                title: Text('${child.hoDem} ${child.ten}'),
-                subtitle: Text('Class: ${child.lop}'),
-              );
-            },
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              columns: [
+                DataColumn(label: Text('Họ Đệm')),
+                DataColumn(label: Text('Tên')),
+                DataColumn(label: Text('Ngày Sinh')),
+                DataColumn(label: Text('Giới Tính')),
+                DataColumn(label: Text('Địa Chỉ')),
+                DataColumn(label: Text('Người Giám Hộ')),
+                DataColumn(label: Text('Số ĐT')),
+                DataColumn(label: Text('Lớp')),
+              ],
+              rows: childProvider.children.map((child) {
+                return DataRow(
+                  cells: [
+                    DataCell(Text(child.hoDem)),
+                    DataCell(Text(child.ten)),
+                    DataCell(Text(DateFormat('dd-MM-yyyy').format(child.ngaySinh))),
+                    DataCell(Text(child.gioiTinh)),
+                    DataCell(Text(child.diaChi)),
+                    DataCell(Text(child.nguoiGiamHo)),
+                    DataCell(Text(child.soDT)),
+                    DataCell(Text(child.lop)),
+                  ],
+                );
+              }).toList(),
+            ),
           );
         },
       ),
