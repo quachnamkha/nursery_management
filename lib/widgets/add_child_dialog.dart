@@ -21,7 +21,7 @@ class _AddChildDialogState extends State<AddChildDialog> {
   final _nguoiGiamHoController = TextEditingController();
   final _soDTController = TextEditingController();
   final _lopController = TextEditingController();
-  final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
+  final DateFormat _dateFormat = DateFormat('dd-MM-yyyy');
   DateTime? _selectedDate;
 
   Future<void> _selectDate(BuildContext context) async {
@@ -70,7 +70,7 @@ class _AddChildDialogState extends State<AddChildDialog> {
               ),
               TextFormField(
                 controller: _ngaySinhController,
-                decoration: InputDecoration(labelText: 'Ngày Sinh (yyyy-MM-dd)'),
+                decoration: InputDecoration(labelText: 'Ngày Sinh (dd-MM-yyyy)'),
                 readOnly: true,
                 onTap: () => _selectDate(context),
                 validator: (value) {
@@ -80,7 +80,7 @@ class _AddChildDialogState extends State<AddChildDialog> {
                   try {
                     _dateFormat.parseStrict(value);
                   } catch (e) {
-                    return 'Invalid date format, use yyyy-MM-dd';
+                    return 'Invalid date format, use dd-MM-yyyy';
                   }
                   return null;
                 },
